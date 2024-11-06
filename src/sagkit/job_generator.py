@@ -1,3 +1,4 @@
+import os
 import random
 import argparse
 
@@ -29,6 +30,10 @@ for ET_ratio in ET_ratio_list:
             DDL_list.append(10000)
             priority_list.append(random.randint(1, 10))
 
+        test_folder = "./tests"
+        if not os.path.exists(test_folder):
+            os.makedirs(test_folder)
+            
         with open("./tests/generate_result.txt","w") as dot_file:
             for i in range(runnable_number):
                 dot_file.write(str(BCAT_list[i]) + ' ' + str(WCAT_list[i]) + ' ' + str(BCET_list[i]) + ' ' + str(WCET_list[i]) + \
