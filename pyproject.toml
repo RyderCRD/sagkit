@@ -1,0 +1,18 @@
+[project]
+name = "sagkit"
+version = "0.0.3"
+authors = [
+  { name="Ruide Cao", email="caoruide123@gmail.com" },
+]
+description = "A toolkit for constructing and analyzing schedule-abstraction graph in Python"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/RyderCRD/sagkit"
+Issues = "https://github.com/RyderCRD/sagkit/issues"

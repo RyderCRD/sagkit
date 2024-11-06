@@ -1,0 +1,7 @@
+src/sagkit/main.py
+src/sagkit/main_backup.py
+*.pyc
+*.egg-info
+*.txt
+*.whl
+*.tar.gz
