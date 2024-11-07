@@ -1,11 +1,10 @@
 do_merging = True
 do_spliting = False
 
-import random
 from typing import List
 
 class Job:
-    def __init__(self, id:int, BCAT:int, WCAT:int, BCET:int, WCET:int, DDL:int, priority:int, ET_ratio:int) -> None:
+    def __init__(self, id:int, BCAT:int, WCAT:int, BCET:int, WCET:int, DDL:int, priority:int, is_ET:int) -> None:
         self.id = id
         self.BCAT = BCAT
         self.WCAT = WCAT
@@ -15,7 +14,7 @@ class Job:
         self.WCET_REC = WCET
         self.DDL = DDL
         self.priority = priority
-        self.is_ET = 0 if random.randint(0, 99) < 100-ET_ratio else 1
+        self.is_ET = is_ET
         if not do_spliting and self.is_ET:
             self.BCET = 0
             self.BCET_REC = 0

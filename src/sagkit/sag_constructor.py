@@ -2,11 +2,10 @@ import sys, time
 from utils import Job, State
 
 do_merging = True
-ET_ratio = 15
 spliting_condition_list = [False, True]
 
 for do_spliting in spliting_condition_list:
-    print('ET_ratio:', ET_ratio, 'do_spliting:', do_spliting)
+    print('do_spliting:', do_spliting)
     
     start_time = time.time()
 
@@ -16,7 +15,7 @@ for do_spliting in spliting_condition_list:
     input_file = open('./tests/generate_result.txt', 'r')
     for job in input_file:
         job = job.split()
-        job_list.append(Job(len(job_list), int(job[0]), int(job[1]), int(job[2]), int(job[3]), int(job[4]), int(job[5]), ET_ratio))
+        job_list.append(Job(len(job_list), int(job[0]), int(job[1]), int(job[2]), int(job[3]), int(job[4]), int(job[5]), int(job[6])))
     input_file.close()
 
     # ET_es_counter = 1
@@ -95,9 +94,12 @@ for do_spliting in spliting_condition_list:
                         
         shortest_leaf = find_shortest_leaf()
         
-
-    print('Execution time:', time.time()-start_time, 's')
+    # Print the time it takes to construct the SAG
+    print('Construction time:', time.time()-start_time, 's')
     
+    # Output the SAG in .dot format
+    # https://dreampuf.github.io/GraphvizOnline to visualize the SAG
+    # If that doesn't work, try viewing the site in incognito mode
     with open("./tests/dot.txt","w") as dot_file:
         dot_file.write('digraph finite_state_machine {\n'+
         'rankdir = LR;\n'+
