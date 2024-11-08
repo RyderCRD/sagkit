@@ -15,7 +15,10 @@ for do_spliting in spliting_condition_list:
     input_file = open('./tests/generate_result.txt', 'r')
     for job in input_file:
         job = job.split()
-        job_list.append(Job(len(job_list), int(job[0]), int(job[1]), int(job[2]), int(job[3]), int(job[4]), int(job[5]), int(job[6])))
+        if not do_spliting and int(job[6]) == 1:
+            job_list.append(Job(len(job_list), int(job[0]), int(job[1]), 0, int(job[3]), int(job[4]), int(job[5]), int(job[6])))
+        else:
+            job_list.append(Job(len(job_list), int(job[0]), int(job[1]), int(job[2]), int(job[3]), int(job[4]), int(job[5]), int(job[6])))
     input_file.close()
 
     # ET_es_counter = 1
@@ -105,10 +108,12 @@ for do_spliting in spliting_condition_list:
         'rankdir = LR;\n'+
         'size = "8,5";\n'+
         'node [shape = doublecircle];\n'+
-        '"S0\\n[0, 0]";\n'+
+        '"S1\\n[0, 0]";\n'+
         'node [shape = circle];\n')
         for state in state_list:
             for i in range(len(state.next_jobs)):
-                dot_file.write('"S' + str(state.id) + '\\n[' + str(state.EFT) + ', ' + str(state.LFT) + ']" -> "S' + str(state.next_states[i].id) + \
-                    '\\n[' + str(state.next_states[i].EFT) + ', ' + str(state.next_states[i].LFT) + ']" [label="J' + str(state.next_jobs[i].id) + '"];\n')
+                dot_file.write('"S' + str(state.id+1) + '\\n[' + str(state.EFT) + ', ' + str(state.LFT) + ']" -> "S' + str(state.next_states[i].id+1) + \
+                    '\\n[' + str(state.next_states[i].EFT) + ', ' + str(state.next_states[i].LFT) + ']" [label="J' + str(state.next_jobs[i].id+1) + '"];\n')
         dot_file.write('}')
+        
+    print('Number of states:', len(state_list))

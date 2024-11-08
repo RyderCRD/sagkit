@@ -1,3 +1,11 @@
+'''
+Author: Ruide Cao (caoruide123@gmail.com)
+Date: 2024-11-05 17:53:13
+LastEditTime: 2024-11-08 12:08:09
+FilePath: \sagkit\src\sagkit\job_generator.py
+Description: 
+Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
+'''
 import os
 import random
 import argparse

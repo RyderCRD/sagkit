@@ -1,6 +1,3 @@
-do_merging = True
-do_spliting = False
-
 from typing import List
 
 class Job:
@@ -15,9 +12,6 @@ class Job:
         self.DDL = DDL
         self.priority = priority
         self.is_ET = is_ET
-        if not do_spliting and self.is_ET:
-            self.BCET = 0
-            self.BCET_REC = 0
         
     def set_to_non_triggered(self) -> None:
         self.BCET = 0
@@ -41,3 +35,6 @@ class Job:
                 and future_job.is_priority_eligible(future_jobs, max(future_job.WCAT, state_LFT)):
                 return False
         return True
+    
+    def __str__(self) -> str:
+        return 'Job' + str(self.id) + '[' + str(self.BCAT) + ', ' + str(self.WCAT) + '] [' + str(self.BCET) + ', ' + str(self.WCET) + '] ' + str(self.DDL) + ', ' + str(self.priority) + ', ' + str(self.is_ET)
