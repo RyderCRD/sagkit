@@ -1,18 +1,18 @@
 '''
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-08 12:08:09
+LastEditTime: 2024-11-08 14:27:00
 FilePath: \sagkit\src\sagkit\job_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 '''
+
 import os
 import random
 import argparse
 
 class JobsetGenerator:
-    def __init__(self, seed, num_ins, ET_ratio, utilization, num_runnable):
-        random.seed(seed)
+    def __init__(self, num_ins, ET_ratio, utilization, num_runnable):
         self.num_ins = num_ins
         self.ET_ratio = ET_ratio
         self.utilization = utilization
@@ -59,12 +59,6 @@ def int_or_int_list(value):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a jobset")
     parser.add_argument(
-        "--seed",
-        type=int,
-        default=1,
-        help="random seed",
-    )
-    parser.add_argument(
         "--num_ins",
         type=int,
         default=1,
@@ -97,7 +91,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     generator = JobsetGenerator(
-        args.seed,
         args.num_ins,
         args.ET_ratio,
         args.utilization,
