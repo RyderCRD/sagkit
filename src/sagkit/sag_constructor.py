@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-09 09:29:49
+LastEditTime: 2024-11-09 23:25:34
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -149,6 +149,35 @@ class SAG_constructor:
             except Exception as e:
                 print(e, traceback.format_exc())
 
+        # Print some statistics
+        print("Number of states:", len(self.state_list))
+        ET_es_counter = 1
+        non_ET_es_counter = 1
+        for job in self.job_list:
+            ET_es_counter *= (
+                (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 2)
+                if job.is_ET
+                else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
+            )
+            non_ET_es_counter *= (
+                (job.WCAT - job.BCAT + 1) * (job.WCET + 1)
+                if job.is_ET
+                else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
+            )
+        print("Number of execution scenarios:", ET_es_counter)
+        print("Number of non-ET execution scenarios:", non_ET_es_counter)
+        print("Valid ratio of non-ET SAG:", ET_es_counter / non_ET_es_counter)
+        # Maximum width
+        width_list = [0 for _ in range(shortest_leaf.depth + 1)]
+        for state in self.state_list:
+            width_list[state.depth] += 1
+        print("Maximum width:", max(width_list))
+        # Maximum Waste idle time
+        waste_time = 0
+        for job in self.job_list:
+            waste_time += job.BCET if job.is_ET else 0
+        print("Maximum waste idle time:", waste_time)
+
     # Output the SAG in .dot format
     # https://dreampuf.github.io/GraphvizOnline to visualize the SAG
     # If that doesn't work, try viewing the site in incognito mode
@@ -182,17 +211,6 @@ class SAG_constructor:
                         + '"];\n'
                     )
             dot_file.write("}")
-
-        # Print some statistics
-        print("Number of states:", len(self.state_list))
-        # ET_es_counter = 1
-        # non_ET_es_counter = 1
-        # for job in job_list:
-        #     ET_es_counter *= (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 2) if job.is_ET else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
-        #     non_ET_es_counter *= (job.WCAT - job.BCAT + 1) * (job.WCET + 1) if job.is_ET else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
-        # print('Number of execution scenarios:', ET_es_counter)
-        # print('Number of non-ET execution scenarios:', non_ET_es_counter)
-        # print('Valid ratio of non-ET SAG:', ET_es_counter/non_ET_es_counter)
 
 
 def int_or_int_list(value):
