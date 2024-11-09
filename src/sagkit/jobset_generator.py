@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-08 17:18:57
+LastEditTime: 2024-11-09 09:26:01
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -103,7 +103,7 @@ def int_or_int_list(value):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a jobset")
     parser.add_argument(
-        "--num_ins",
+        "--num_instance",
         type=int,
         default=1,
         help="Number of instances",
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     generator = Jobset_generator(
-        args.num_ins, args.ET_ratio, args.utilization, args.num_runnable
+        args.num_instance, args.ET_ratio, args.utilization, args.num_runnable
     )
     generator.run(args.output)
     print("Successfully generated jobsets!")

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-09 09:00:34
+LastEditTime: 2024-11-09 09:29:49
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -67,8 +67,9 @@ class SAG_constructor:
         shortest_leaf = min(leaves, key=lambda x: x.depth)
         return shortest_leaf
 
-    # Match two states
-    def match(self, a: State, b: State) -> bool:
+    @staticmethod
+    def match(a: State, b: State) -> bool:
+        # Match two states
         if a.depth != b.depth:
             return False
         return max(a.EFT, b.EFT) <= min(a.LFT, b.LFT) and sorted(
@@ -108,45 +109,45 @@ class SAG_constructor:
         # Construct SAG
         shortest_leaf = SAG_root
         while shortest_leaf.depth < len(self.job_list):
-            with tqdm(
-                total=len(self.job_list),
-                desc=f"Depth {shortest_leaf.depth+1}/{len(self.job_list)}",
-            ) as pbar:
-                try:
-                    eligible_successors = []
-                    future_jobs = [
-                        j for j in self.job_list if j not in shortest_leaf.job_path
-                    ]
-                    for future_job in future_jobs:
-                        t_E = max(shortest_leaf.EFT, future_job.BCAT)
-                        if future_job.is_priority_eligible(
-                            future_jobs, t_E
-                        ) and future_job.is_potentially_next(
-                            future_jobs, t_E, shortest_leaf.LFT
-                        ):
-                            eligible_successors.append(future_job)
-                    if len(eligible_successors) == 0:
-                        sys.exit("No eligible successor found during construction!")
-                    for eligible_successor in eligible_successors:
+            # with tqdm(
+            #     total=len(self.job_list),
+            #     desc=f"Depth {shortest_leaf.depth+1}/{len(self.job_list)}",
+            # ) as pbar:
+            try:
+                eligible_successors = []
+                future_jobs = [
+                    j for j in self.job_list if j not in shortest_leaf.job_path
+                ]
+                for future_job in future_jobs:
+                    t_E = max(shortest_leaf.EFT, future_job.BCAT)
+                    if future_job.is_priority_eligible(
+                        future_jobs, t_E
+                    ) and future_job.is_potentially_next(
+                        future_jobs, t_E, shortest_leaf.LFT
+                    ):
+                        eligible_successors.append(future_job)
+                if len(eligible_successors) == 0:
+                    sys.exit("No eligible successor found during construction!")
+                for eligible_successor in eligible_successors:
+                    self.expand(
+                        leaf=shortest_leaf,
+                        job=eligible_successor,
+                        do_merge=do_merging,
+                    )
+
+                    if do_spliting and eligible_successor.is_ET:
+                        eligible_successor.set_to_non_triggered()
                         self.expand(
                             leaf=shortest_leaf,
                             job=eligible_successor,
-                            do_merge=do_merging,
+                            do_merge=True,
                         )
+                        eligible_successor.set_to_triggered()
 
-                        if do_spliting and eligible_successor.is_ET:
-                            eligible_successor.set_to_non_triggered()
-                            self.expand(
-                                leaf=shortest_leaf,
-                                job=eligible_successor,
-                                do_merge=True,
-                            )
-                            eligible_successor.set_to_triggered()
-
-                    shortest_leaf = self.find_shortest_leaf()
-                    pbar.n = shortest_leaf.depth
-                except Exception as e:
-                    print(e, traceback.format_exc())
+                shortest_leaf = self.find_shortest_leaf()
+                # pbar.n = shortest_leaf.depth
+            except Exception as e:
+                print(e, traceback.format_exc())
 
     # Output the SAG in .dot format
     # https://dreampuf.github.io/GraphvizOnline to visualize the SAG
@@ -224,7 +225,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    for i in range(args.num_jobsets):
+    for i in tqdm(range(args.num_jobsets)):
 
         origin_SAG_constructor = SAG_constructor(
             header="origin", do_merging=True, do_spliting=False, do_extending=False
@@ -244,14 +245,14 @@ if __name__ == "__main__":
         start_time = time.time()
         origin_SAG_constructor.construct_SAG(do_merging=True, do_spliting=False)
         print("Origin SAG construction time:", time.time() - start_time, "s")
-        origin_SAG_constructor.save_SAG()
+        # origin_SAG_constructor.save_SAG()
 
         start_time = time.time()
         splited_SAG_constructor.construct_SAG(do_merging=True, do_spliting=True)
         print("Splited SAG construction time:", time.time() - start_time, "s")
-        splited_SAG_constructor.save_SAG()
+        # splited_SAG_constructor.save_SAG()
 
         start_time = time.time()
         extended_SAG_constructor.construct_SAG(do_merging=True, do_spliting=False)
         print("Extended SAG construction time:", time.time() - start_time, "s")
-        extended_SAG_constructor.save_SAG()
+        # extended_SAG_constructor.save_SAG()
