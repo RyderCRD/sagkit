@@ -1,6 +1,7 @@
 src/sagkit/main.py
 src/sagkit/main_backup.py
 *.pyc
+*.csv
 *.egg-info
 *.txt
 *.whl

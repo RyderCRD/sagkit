@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-09 09:26:01
+LastEditTime: 2024-11-10 13:31:39
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -13,6 +13,8 @@ import argparse
 import traceback
 import itertools
 from tqdm import tqdm
+
+random.seed(1)
 
 
 class Jobset_generator:
@@ -65,10 +67,9 @@ class Jobset_generator:
                             os.makedirs(output_folder)
 
                         with open(
-                            output_folder
-                            + "/jobset_"
-                            + f"{i + ins * num_param_combinations}"
-                            + ".txt",
+                            output_folder + "/jobset-"
+                            # + f"{i + ins * num_param_combinations}-"
+                            + f"{ET_ratio}-" + f"{utilization}" + ".txt",
                             "w",
                         ) as dot_file:
                             for j in range(num_runnable):
