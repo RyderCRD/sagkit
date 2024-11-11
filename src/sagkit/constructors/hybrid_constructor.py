@@ -1,13 +1,14 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-10 00:13:32
-LastEditTime: 2024-11-10 11:59:26
+LastEditTime: 2024-11-12 01:14:29
 FilePath: \\sagkit\\src\\sagkit\\constructors\\hybrid_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
 import sys
+import math
 import traceback
 from utils import State
 from constructors import Constructor
@@ -61,3 +62,18 @@ class Hybrid_constructor(Constructor):
                 # pbar.n = shortest_leaf.depth
             except Exception as e:
                 print(e, traceback.format_exc())
+
+    def count_execution_scenarios(self):
+        actual_es_counter = 1
+        for job in self.job_list:
+            actual_es_counter *= (
+                (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 2)
+                if job.is_ET
+                else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
+            )
+        actual_es_counter = math.log10(actual_es_counter)
+        analyzed_es_counter = actual_es_counter
+        return actual_es_counter, analyzed_es_counter
+
+    def count_idle_time(self):
+        return 0

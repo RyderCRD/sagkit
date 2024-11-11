@@ -1,12 +1,13 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-10 17:52:16
+LastEditTime: 2024-11-12 01:14:36
 FilePath: \\sagkit\\src\\sagkit\\constructors\\extended_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
+import math
 from utils import Job
 from constructors import Constructor
 
@@ -32,3 +33,24 @@ class Extended_constructor(Constructor):
                 job.BCET = 0
             self.job_list.append(job)
         input_file.close()
+
+    def count_execution_scenarios(self):
+        actual_es_counter = 1
+        analyzed_es_counter = 1
+        for job in self.job_list:
+            actual_es_counter *= (
+                (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET_REC + 2)
+                if job.is_ET
+                else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET_REC + 1)
+            )
+            analyzed_es_counter *= (
+                (job.WCAT - job.BCAT + 1) * (job.WCET + 1)
+                if job.is_ET
+                else (job.WCAT - job.BCAT + 1) * (job.WCET - job.BCET + 1)
+            )
+        actual_es_counter = math.log10(actual_es_counter)
+        analyzed_es_counter = math.log10(analyzed_es_counter)
+        return actual_es_counter, analyzed_es_counter
+
+    def count_idle_time(self):
+        return 0

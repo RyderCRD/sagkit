@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-12 00:26:53
+LastEditTime: 2024-11-12 01:50:12
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -14,7 +14,7 @@ import traceback
 import itertools
 from tqdm import tqdm
 
-random.seed(1)
+random.seed(2024)
 
 
 class Jobset_generator:
@@ -50,17 +50,24 @@ class Jobset_generator:
                         ET_list = []
 
                         for j in range(num_runnable):
+                            # Best-case arrival time
+                            BCAT = random.randint(1, 9990)
+                            BCAT_list.append(BCAT)
+                            # Worst-case arrival time
+                            WCAT_list.append(BCAT + random.randint(0, 9))
+                            # Best-case execution time
+                            BCET = random.randint(2, int(utilization / 5 - 7))
+                            BCET_list.append(BCET)
+                            # Worst-case execution time
+                            WCET_list.append(BCET + random.randint(1, 4))
+                            # Deadline
+                            DDL_list.append(10000)
+                            # Priority
+                            priority_list.append(random.randint(1, 10))
+                            # Hybrid
                             ET_list.append(
                                 0 if random.randint(0, 99) < 100 - ET_ratio else 1
                             )
-                            BCAT = random.randint(1, 9900)
-                            BCAT_list.append(BCAT)
-                            WCAT_list.append(BCAT + random.randint(0, 9))
-                            BCET = random.randint(2, int(utilization / 5 - 7))
-                            BCET_list.append(BCET)
-                            WCET_list.append(BCET + random.randint(1, 4))
-                            DDL_list.append(10000)
-                            priority_list.append(random.randint(1, 10))
 
                         output_folder = output_folder
                         if not os.path.exists(output_folder):
@@ -69,7 +76,7 @@ class Jobset_generator:
                         with open(
                             output_folder + "/jobset-"
                             # + f"{i + ins * num_param_combinations}-"
-                            + f"{utilization}" + f"{ET_ratio}-" + ".txt",
+                            + f"{utilization}-" + f"{ET_ratio}" + ".txt",
                             "w",
                         ) as dot_file:
                             for j in range(num_runnable):

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 00:31:49
+LastEditTime: 2024-11-12 01:21:34
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -66,14 +66,14 @@ if __name__ == "__main__":
         type = [constructor_type]
 
         header = [
-            "ET_Ratio",
             "Utilization",
+            "ET_Ratio",
             "Number of States",
-            "Number of execution scenarios",
-            "Number of non-ET execution scenarios",
-            "Valid ratio of non-ET SAG:",
+            "Number of actual execution scenarios",
+            "Number of analyzed execution scenarios",
+            "Valid ratio of analyzed SAG:",
             "Maximum width",
-            "Maximum waste idle time",
+            "Maximum idle time",
             "Construction time",
         ]
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
             start_time = time.process_time()
             SAG_constructor.construct_SAG(do_merging=True)
             # print("SAG construction time:", time.time() - start_time, "s")
-            ET_es_counter, non_ET_es_counter, max_width, waste_time = (
+            actual_es_counter, analyzed_es_counter, max_width, idle_time = (
                 SAG_constructor.do_statistics()
             )
             end_time = time.process_time()
@@ -118,14 +118,14 @@ if __name__ == "__main__":
                 writer = csv.writer(csvfile)
                 writer.writerow(
                     [
-                        ET_ratio,
                         utilization,
+                        ET_ratio,
                         len(SAG_constructor.state_list),
-                        ET_es_counter,
-                        non_ET_es_counter,
-                        pow(10, non_ET_es_counter - ET_es_counter),
+                        actual_es_counter,
+                        analyzed_es_counter,
+                        pow(10, analyzed_es_counter - actual_es_counter),
                         max_width,
-                        waste_time,
+                        idle_time,
                         end_time - start_time,
                     ]
                 )
