@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-10 13:31:39
+LastEditTime: 2024-11-12 00:26:53
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -69,7 +69,7 @@ class Jobset_generator:
                         with open(
                             output_folder + "/jobset-"
                             # + f"{i + ins * num_param_combinations}-"
-                            + f"{ET_ratio}-" + f"{utilization}" + ".txt",
+                            + f"{utilization}" + f"{ET_ratio}-" + ".txt",
                             "w",
                         ) as dot_file:
                             for j in range(num_runnable):

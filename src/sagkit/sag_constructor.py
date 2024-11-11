@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-10 19:07:37
+LastEditTime: 2024-11-12 00:27:11
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -48,9 +48,15 @@ if __name__ == "__main__":
 
     jobset_folder = args.jobset_folder
     jobset_paths = os.listdir(jobset_folder)
+    jobset_paths.sort(key=lambda x: (int(x.split("-")[1]), int(x.split("-")[2][:-4])))
+    print(jobset_paths)
 
     for constructor_type in args.constructor_type:
-        print("########## Constructing SAG with :", constructor_type, "##########")
+        print(
+            "########## Constructing SAG with :",
+            constructor_type,
+            " construction algorithm ##########",
+        )
 
         type = [constructor_type]
 
@@ -72,8 +78,8 @@ if __name__ == "__main__":
             writer.writerow(header)
 
         for jobset_path in tqdm(jobset_paths):
-            ET_ratio = int(jobset_path.split("-")[1])
-            utilization = int(jobset_path.split("-")[2][:-4])
+            utilization = int(jobset_path.split("-")[1])
+            ET_ratio = int(jobset_path.split("-")[2][:-4])
             jobset_path = jobset_folder + jobset_path
 
             if constructor_type == "original":
@@ -95,12 +101,13 @@ if __name__ == "__main__":
             # jobset_path = args.jobset_folder + "jobset_" + f"{i}" + ".txt"
             SAG_constructor.read_jobs(jobset_path)
 
-            start_time = time.time()
+            start_time = time.process_time()
             SAG_constructor.construct_SAG(do_merging=True)
             # print("SAG construction time:", time.time() - start_time, "s")
             ET_es_counter, non_ET_es_counter, max_width, waste_time = (
                 SAG_constructor.do_statistics()
             )
+            end_time = time.process_time()
 
             with open("../../statistics.csv", "a", newline="") as csvfile:
                 writer = csv.writer(csvfile)
@@ -114,7 +121,7 @@ if __name__ == "__main__":
                         pow(10, non_ET_es_counter - ET_es_counter),
                         max_width,
                         waste_time,
-                        time.time() - start_time,
+                        end_time - start_time,
                     ]
                 )
 
