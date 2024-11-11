@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 01:57:50
+LastEditTime: 2024-11-12 02:09:52
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -124,7 +124,8 @@ if __name__ == "__main__":
                         len(SAG_constructor.state_list),
                         actual_es_counter,
                         analyzed_es_counter,
-                        pow(10, analyzed_es_counter - actual_es_counter),
+                        # pow(10, analyzed_es_counter - actual_es_counter),
+                        analyzed_es_counter - actual_es_counter
                         max_width,
                         idle_time,
                         end_time - start_time,
