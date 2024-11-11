@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 00:27:11
+LastEditTime: 2024-11-12 00:31:49
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -46,16 +46,21 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    # Read jobsets and sort them
     jobset_folder = args.jobset_folder
     jobset_paths = os.listdir(jobset_folder)
     jobset_paths.sort(key=lambda x: (int(x.split("-")[1]), int(x.split("-")[2][:-4])))
     print(jobset_paths)
 
+    # Remove old statistics file if it exists
+    os.remove("../../statistics.csv")
+
+    # Construct SAGs with different construction algorithms
     for constructor_type in args.constructor_type:
         print(
             "########## Constructing SAG with :",
             constructor_type,
-            " construction algorithm ##########",
+            "construction algorithm ##########",
         )
 
         type = [constructor_type]
