@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 01:21:34
+LastEditTime: 2024-11-12 01:57:50
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -53,7 +53,8 @@ if __name__ == "__main__":
     print(jobset_paths)
 
     # Remove old statistics file if it exists
-    os.remove("../../statistics.csv")
+    if os.path.exists("../../statistics.csv"):
+        os.remove("../../statistics.csv")
 
     # Construct SAGs with different construction algorithms
     for constructor_type in args.constructor_type:
