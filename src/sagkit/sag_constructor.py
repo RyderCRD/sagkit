@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 02:11:11
+LastEditTime: 2024-11-12 10:15:03
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
             "Valid ratio of analyzed SAG:",
             "Maximum width",
             "Maximum idle time",
-            "Construction time",
+            "Construction time (ns)",
         ]
 
         with open("../../statistics.csv", "a", newline="") as csvfile:
@@ -107,13 +107,13 @@ if __name__ == "__main__":
             # jobset_path = args.jobset_folder + "jobset_" + f"{i}" + ".txt"
             SAG_constructor.read_jobs(jobset_path)
 
-            start_time = time.process_time()
+            start_time = time.process_time_ns()
             SAG_constructor.construct_SAG(do_merging=True)
+            end_time = time.process_time_ns()
             # print("SAG construction time:", time.time() - start_time, "s")
             actual_es_counter, analyzed_es_counter, max_width, idle_time = (
                 SAG_constructor.do_statistics()
             )
-            end_time = time.process_time()
 
             with open("../../statistics.csv", "a", newline="") as csvfile:
                 writer = csv.writer(csvfile)
