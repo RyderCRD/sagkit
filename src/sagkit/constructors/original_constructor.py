@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 01:16:48
+LastEditTime: 2024-11-13 00:34:03
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -178,14 +178,14 @@ class Constructor:
     # https://dreampuf.github.io/GraphvizOnline to visualize the SAG
     # If that doesn't work, try viewing the site in incognito mode
     def save_SAG(self):
-        with open("./tests/" + self.header + "_dot.txt", "w") as dot_file:
+        with open("../../" + self.header + "_dot.txt", "w") as dot_file:
             dot_file.write(
                 "digraph finite_state_machine {\n"
                 + "rankdir = LR;\n"
                 + 'size = "8,5";\n'
-                + "node [shape = doublecircle];\n"
+                + "node [shape = doublecircle, fontsize = 20];\n"
                 + '"S1\\n[0, 0]";\n'
-                + "node [shape = circle];\n"
+                + "node [shape = circle, fontsize = 20];\n"
             )
             for state in self.state_list:
                 for i in range(len(state.next_jobs)):
@@ -204,6 +204,6 @@ class Constructor:
                         + str(state.next_states[i].LFT)
                         + ']" [label="J'
                         + str(state.next_jobs[i].id + 1)
-                        + '"];\n'
+                        + '", fontsize = 20];\n'
                     )
             dot_file.write("}")
