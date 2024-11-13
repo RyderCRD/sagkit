@@ -5,4 +5,5 @@ src/sagkit/main_backup.py
 *.egg-info
 *.txt
 *.whl
+*.zip
 *.tar.gz

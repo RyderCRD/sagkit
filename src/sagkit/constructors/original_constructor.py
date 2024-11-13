@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-13 00:34:03
+LastEditTime: 2024-11-13 10:49:49
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -183,9 +183,9 @@ class Constructor:
                 "digraph finite_state_machine {\n"
                 + "rankdir = LR;\n"
                 + 'size = "8,5";\n'
-                + "node [shape = doublecircle, fontsize = 20];\n"
+                + "node [shape = doublecircle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];\n"
                 + '"S1\\n[0, 0]";\n'
-                + "node [shape = circle, fontsize = 20];\n"
+                + "node [shape = circle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];\n"
             )
             for state in self.state_list:
                 for i in range(len(state.next_jobs)):
