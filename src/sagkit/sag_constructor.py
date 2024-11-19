@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 10:15:03
+LastEditTime: 2024-11-20 02:31:14
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -26,12 +26,6 @@ def str_list(value):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Generate a jobset")
-    # parser.add_argument(
-    #     "--num_jobsets",
-    #     type=int,
-    #     default=1,
-    #     help="Number of jobsets",
-    # )
     parser.add_argument(
         "--jobset_folder",
         type=str,
@@ -43,6 +37,12 @@ if __name__ == "__main__":
         type=str_list,
         default="original,extended,hybrid",  # Original, Extended, Hybrid
         help="Type of SAG constructor",
+    )
+    parser.add_argument(
+        "--save_dot",
+        type=bool,
+        default=False,
+        help="Whether to save SAG as dot file",
     )
     args = parser.parse_args()
 
@@ -132,4 +132,5 @@ if __name__ == "__main__":
                     ]
                 )
 
-            # SAG_constructor.save_SAG()
+            if args.save_dot:
+                SAG_constructor.save_SAG()
