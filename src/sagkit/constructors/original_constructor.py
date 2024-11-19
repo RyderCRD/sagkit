@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-13 10:49:49
+LastEditTime: 2024-11-20 02:19:40
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -154,10 +154,10 @@ class Constructor:
 
         # Number of execution scenarios
         actual_es_counter, analyzed_es_counter = self.count_execution_scenarios()
-        print("Number of Acture execution scenarios:", actual_es_counter)
-        print("Number of non-ET execution scenarios:", analyzed_es_counter)
+        print("Number of actual execution scenarios:", actual_es_counter)
+        print("Number of analyzed execution scenarios:", analyzed_es_counter)
         print(
-            "Valid ratio of non-ET SAG:",
+            "Valid ratio (natural logarithm):",
             pow(10, analyzed_es_counter - actual_es_counter),
         )
 
@@ -170,7 +170,7 @@ class Constructor:
 
         # Maximum idle time
         idle_time = self.count_idle_time()
-        print("Maximum waste idle time:", idle_time)
+        print("Maximum idle time:", idle_time)
 
         return actual_es_counter, analyzed_es_counter, max(width_list), idle_time
 
