@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-22 11:48:58
+ * @LastEditTime: 2024-12-22 11:52:33
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -19,7 +19,7 @@ You may install SAGkit with pip
 pip install sagkit
 ```
 
-or reproduce the results in our paper directly with a docker image
+or reproduce the results in our paper directly with a docker image (requires [Docker](https://www.docker.com/))
 
 ```
 docker pull caoruide/sagkit
