@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-22 11:47:43
+ * @LastEditTime: 2024-12-22 11:48:58
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -66,4 +66,4 @@ docker run -v "$(pwd)/results:/output" caoruide/sagkit sagkit.sag_constructor
 
 ## Contribute
 
-Contributions are welcome! Please feel free to drop your issues and PRs.:)
+Contributions are welcome! Please feel free to drop your issues and PRs :)
