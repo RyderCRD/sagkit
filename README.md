@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-22 16:49:10
+ * @LastEditTime: 2024-12-23 14:34:09
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -11,24 +11,38 @@
 <img src="doc/sagkit.png" alt="go-sag" width="200">
 
 A toolkit for constructing and analyzing schedule-abstraction graph in Python.
+You may also be interested in [Official SAG repository (in C++)](https://github.com/SAG-org/schedule_abstraction-main), [sag-go (in GO)](https://github.com/porya-gohary/sag-go), and [sag-py (in Python)](https://github.com/RaduLucianR/sag-py).
 
 ## Install
 
-You may install SAGkit with pip
+You may install SAGkit from source (recommended):
+```
+git clone https://github.com/RyderCRD/sagkit
+```
+
+or install with pip:
 ```
 pip install sagkit
 ```
 
-or reproduce the results in our paper directly with a docker image (requires [Docker](https://www.docker.com/))
-
+or reproduce the results in our paper directly with a docker image (requires [Docker](https://www.docker.com/)):
 ```
 docker pull caoruide/sagkit
 ```
 
 ## Use
 
+Change direcotry to ./sagkit (over the /src directory):
+```
+cd sagkit
+```
+Run all unit tests:
 ```
 python -m unittest discover tests
+```
+Normally, all tests will pass correctly. You can then generate jobsets and build the SAGs.
+```
+python3 -m tsnkit.models.[METHOD] [STREAM PATH] [NETWORK PATH]
 ```
 
 ## Reproduce
