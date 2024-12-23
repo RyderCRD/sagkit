@@ -1,13 +1,14 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:59:56
-LastEditTime: 2024-11-08 17:18:44
+LastEditTime: 2024-12-22 20:05:55
 FilePath: \\sagkit\\src\\sagkit\\utils\\job.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
 from typing import List
+from sagkit.schedulers.fp_scheduler import FP_Scheduler
 
 
 class Job:
@@ -43,7 +44,7 @@ class Job:
 
     def is_priority_eligible(self, future_jobs: List, time: int) -> bool:
         for future_job in future_jobs:
-            if (future_job.WCAT <= time) and (future_job.priority < self.priority):
+            if (future_job.WCAT <= time) and FP_Scheduler.compare(future_job, self):
                 return False
         return True
 

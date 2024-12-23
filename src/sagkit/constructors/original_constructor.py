@@ -1,17 +1,16 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-20 12:57:44
+LastEditTime: 2024-12-22 22:36:43
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
-import csv
 import sys
 import math
 import traceback
-from utils import Job, State
+from sagkit.utils import Job, State
 
 
 class Constructor:
@@ -179,7 +178,7 @@ class Constructor:
     # If that doesn't work, try viewing the site in incognito mode
     def save_SAG(self):
         # with open("../../" + self.header + ".dot", "w") as dot_file:
-        with open("/output/" + self.header + ".dot", "w") as dot_file:
+        with open("./output/" + self.header + ".dot", "w") as dot_file:
             dot_file.write(
                 "digraph finite_state_machine {\n"
                 + "rankdir = LR;\n"

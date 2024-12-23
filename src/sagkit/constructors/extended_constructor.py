@@ -1,15 +1,15 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-11-12 01:14:36
+LastEditTime: 2024-12-22 18:03:32
 FilePath: \\sagkit\\src\\sagkit\\constructors\\extended_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
 import math
-from utils import Job
-from constructors import Constructor
+from sagkit.utils import Job
+from sagkit.constructors import Constructor
 
 
 class Extended_constructor(Constructor):

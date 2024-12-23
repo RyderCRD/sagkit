@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-11-12 01:50:12
+LastEditTime: 2024-12-22 22:21:16
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output",
         type=str,
-        default="../../tests",
+        default="./jobsets/",
         help="Output folder path",
     )
 

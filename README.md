@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-22 11:52:33
+ * @LastEditTime: 2024-12-22 16:49:10
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -26,6 +26,10 @@ docker pull caoruide/sagkit
 ```
 
 ## Use
+
+```
+python -m unittest discover tests
+```
 
 ## Reproduce
 

@@ -1,0 +1,20 @@
+digraph finite_state_machine {
+rankdir = LR;
+size = "8,5";
+node [shape = doublecircle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];
+"S1\n[0, 0]";
+node [shape = circle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];
+"S1\n[0, 0]" -> "S2\n[9, 12]" [label="J1", fontsize = 20];
+"S1\n[0, 0]" -> "S3\n[0, 2]" [label="J1", fontsize = 20];
+"S1\n[0, 0]" -> "S4\n[6, 7]" [label="J2", fontsize = 20];
+"S2\n[9, 12]" -> "S5\n[11, 15]" [label="J4", fontsize = 20];
+"S3\n[0, 2]" -> "S6\n[6, 8]" [label="J2", fontsize = 20];
+"S4\n[6, 7]" -> "S7\n[15, 17]" [label="J1", fontsize = 20];
+"S4\n[6, 7]" -> "S6\n[6, 8]" [label="J1", fontsize = 20];
+"S5\n[11, 15]" -> "S8\n[12, 17]" [label="J3", fontsize = 20];
+"S6\n[6, 8]" -> "S9\n[8, 11]" [label="J4", fontsize = 20];
+"S7\n[15, 17]" -> "S10\n[17, 20]" [label="J4", fontsize = 20];
+"S8\n[12, 17]" -> "S11\n[17, 23]" [label="J2", fontsize = 20];
+"S9\n[8, 11]" -> "S12\n[9, 13]" [label="J3", fontsize = 20];
+"S10\n[17, 20]" -> "S11\n[17, 23]" [label="J3", fontsize = 20];
+}

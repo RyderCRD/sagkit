@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-10 00:13:32
-LastEditTime: 2024-11-12 01:14:29
+LastEditTime: 2024-12-22 18:03:21
 FilePath: \\sagkit\\src\\sagkit\\constructors\\hybrid_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -10,8 +10,8 @@ Copyright (c) 2024 by Ruide Cao, All Rights Reserved.
 import sys
 import math
 import traceback
-from utils import State
-from constructors import Constructor
+from sagkit.utils import State
+from sagkit.constructors import Constructor
 
 
 class Hybrid_constructor(Constructor):
