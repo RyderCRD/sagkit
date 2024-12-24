@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-22 22:36:43
+LastEditTime: 2024-12-25 00:53:16
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -15,7 +15,7 @@ from sagkit.utils import Job, State
 
 class Constructor:
 
-    def __init__(self, header, do_merging) -> None:
+    def __init__(self, header, do_merging=True) -> None:
         self.job_list = []
         self.state_list = []
         self.header = header

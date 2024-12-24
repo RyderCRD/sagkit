@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-23 14:34:09
+ * @LastEditTime: 2024-12-23 15:01:08
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -41,6 +41,15 @@ Run all unit tests:
 python -m unittest discover tests
 ```
 Normally, all tests will pass correctly. You can then generate jobsets and build the SAGs.
+Change direcotry to ./src:
+```
+cd src
+```
+Generate jobsets:
+```
+python3 -m tsnkit.models.[NUM_INSTANCE] [STREAM PATH] [NETWORK PATH]
+```
+Construct SAGs:
 ```
 python3 -m tsnkit.models.[METHOD] [STREAM PATH] [NETWORK PATH]
 ```

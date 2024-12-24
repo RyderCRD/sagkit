@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-22 22:18:10
+LastEditTime: 2024-12-25 00:58:22
 FilePath: \\sagkit\\tests\\test_jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -50,24 +50,29 @@ class TestJobsetGenerator(unittest.TestCase):
         jobset_folder = output_folder
         jobset_paths = os.listdir(jobset_folder)
         jobset_paths.sort(
-            key=lambda x: (int(x.split("-")[1]), int(x.split("-")[2][:-4]))
+            key=lambda x: (
+                int(x.split("-")[1]),
+                int(x.split("-")[2]),
+                int(x.split("-")[3]),
+                int(x.split("-")[4][:-4]),
+            )
         )
 
         self.assertEqual(len(jobset_paths), 84)
-        self.assertEqual(jobset_paths[0], "jobset-45-0.txt")
-        self.assertEqual(jobset_paths[1], "jobset-45-10.txt")
-        self.assertEqual(jobset_paths[2], "jobset-45-15.txt")
-        self.assertEqual(jobset_paths[3], "jobset-45-20.txt")
-        self.assertEqual(jobset_paths[4], "jobset-45-30.txt")
-        self.assertEqual(jobset_paths[5], "jobset-45-40.txt")
-        self.assertEqual(jobset_paths[6], "jobset-45-50.txt")
-        self.assertEqual(jobset_paths[7], "jobset-45-60.txt")
-        self.assertEqual(jobset_paths[8], "jobset-45-70.txt")
-        self.assertEqual(jobset_paths[9], "jobset-45-80.txt")
-        self.assertEqual(jobset_paths[10], "jobset-45-90.txt")
-        self.assertEqual(jobset_paths[11], "jobset-45-100.txt")
-        self.assertEqual(jobset_paths[12], "jobset-50-0.txt")
-        self.assertEqual(jobset_paths[-1], "jobset-75-100.txt")
+        self.assertEqual(jobset_paths[0], "jobset-45-0-1000-1.txt")
+        self.assertEqual(jobset_paths[1], "jobset-45-10-1000-1.txt")
+        self.assertEqual(jobset_paths[2], "jobset-45-15-1000-1.txt")
+        self.assertEqual(jobset_paths[3], "jobset-45-20-1000-1.txt")
+        self.assertEqual(jobset_paths[4], "jobset-45-30-1000-1.txt")
+        self.assertEqual(jobset_paths[5], "jobset-45-40-1000-1.txt")
+        self.assertEqual(jobset_paths[6], "jobset-45-50-1000-1.txt")
+        self.assertEqual(jobset_paths[7], "jobset-45-60-1000-1.txt")
+        self.assertEqual(jobset_paths[8], "jobset-45-70-1000-1.txt")
+        self.assertEqual(jobset_paths[9], "jobset-45-80-1000-1.txt")
+        self.assertEqual(jobset_paths[10], "jobset-45-90-1000-1.txt")
+        self.assertEqual(jobset_paths[11], "jobset-45-100-1000-1.txt")
+        self.assertEqual(jobset_paths[12], "jobset-50-0-1000-1.txt")
+        self.assertEqual(jobset_paths[-1], "jobset-75-100-1000-1.txt")
 
 
 if __name__ == "__main__":

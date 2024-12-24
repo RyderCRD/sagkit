@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-12-22 22:21:16
+LastEditTime: 2024-12-25 01:08:38
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -37,10 +37,11 @@ class Jobset_generator:
             with tqdm(
                 total=num_param_combinations, desc=f"Instance {ins+1}/{self.num_ins}"
             ) as pbar:
-                for i, (ET_ratio, utilization, num_runnable) in enumerate(
+                for _, (ET_ratio, utilization, num_runnable) in enumerate(
                     param_combinations
                 ):
                     try:
+                        # Initialize lists
                         BCAT_list = []
                         WCAT_list = []
                         BCET_list = []
@@ -49,6 +50,7 @@ class Jobset_generator:
                         priority_list = []
                         ET_list = []
 
+                        # Generate jobset
                         for j in range(num_runnable):
                             # Best-case arrival time
                             BCAT = random.randint(1, 9990)
@@ -69,14 +71,20 @@ class Jobset_generator:
                                 0 if random.randint(0, 99) < 100 - ET_ratio else 1
                             )
 
+                        # Create output folder if not exists
                         output_folder = output_folder
                         if not os.path.exists(output_folder):
                             os.makedirs(output_folder)
 
+                        # Write to file
                         with open(
-                            output_folder + "/jobset-"
-                            # + f"{i + ins * num_param_combinations}-"
-                            + f"{utilization}-" + f"{ET_ratio}" + ".txt",
+                            output_folder
+                            + "/jobset-"
+                            + f"{utilization}-"
+                            + f"{ET_ratio}"
+                            + f"-{num_runnable}-"
+                            + f"{ins+1}"
+                            + ".txt",
                             "w",
                         ) as dot_file:
                             for j in range(num_runnable):
@@ -96,7 +104,11 @@ class Jobset_generator:
                                     + str(ET_list[j])
                                     + "\n"
                                 )
+
+                        # Update progress bar
                         pbar.update(1)
+
+                    # Catch exceptions
                     except Exception as e:
                         print(e, traceback.format_exc())
 
@@ -111,12 +123,6 @@ def int_or_int_list(value):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a jobset")
     parser.add_argument(
-        "--num_instance",
-        type=int,
-        default=1,
-        help="Number of instances",
-    )
-    parser.add_argument(
         "--ET_ratio",
         type=int_or_int_list,
         default=15,
@@ -129,16 +135,22 @@ if __name__ == "__main__":
         help="Utilization",
     )
     parser.add_argument(
+        "--output",
+        type=str,
+        default="./jobsets/",
+        help="Output folder path",
+    )
+    parser.add_argument(
         "--num_runnable",
         type=int_or_int_list,
         default=1000,
         help="Number of runnables",
     )
     parser.add_argument(
-        "--output",
-        type=str,
-        default="./jobsets/",
-        help="Output folder path",
+        "--num_instance",
+        type=int,
+        default=1,
+        help="Number of instances",
     )
 
     args = parser.parse_args()
