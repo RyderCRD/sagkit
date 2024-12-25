@@ -7,7 +7,7 @@
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 -->
 
-<img src="https://www.ryderblog.com/wp-content/uploads/2024/12/sagkit.png" align="right" width="300" alt="header pic">
+<img src="https://www.ryderblog.com/wp-content/uploads/2024/12/sagkit.png" width="300" alt="header pic">
 
 # SAGkit
 
