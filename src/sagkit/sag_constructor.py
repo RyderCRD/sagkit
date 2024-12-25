@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-26 00:00:40
+LastEditTime: 2024-12-26 01:30:00
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: Construct SAGs with specified construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -38,15 +38,19 @@ class SAG_constructor:
         jobset_paths = os.listdir(jobset_folder)
 
         # Sort jobsets by utilization, ET_ratio, num_runnable, and instance number
-        jobset_paths.sort(
-            key=lambda x: (
-                int(x.split("-")[1]),
-                int(x.split("-")[2]),
-                int(x.split("-")[3]),
-                int(x.split("-")[4][:-4]),
+        try:
+            jobset_paths.sort(
+                key=lambda x: (
+                    int(x.split("-")[1]),
+                    int(x.split("-")[2]),
+                    int(x.split("-")[3]),
+                    int(x.split("-")[4][:-4]),
+                )
             )
-        )
-        print(jobset_paths)
+            print(jobset_paths)
+        except IndexError:
+            # In case jobset file names are not in the automatic format
+            pass
 
         # Remove old statistics file if it exists
         if self.save_statistics and os.path.exists(self.save_statistics):
@@ -83,10 +87,13 @@ class SAG_constructor:
 
             # Construct SAGs on each jobset
             for jobset_path in tqdm(jobset_paths):
-                utilization = int(jobset_path.split("-")[1])
-                ET_ratio = int(jobset_path.split("-")[2])
-                runnable_number = int(jobset_path.split("-")[3])
-                instance_number = int(jobset_path.split("-")[4][:-4])
+                if len(jobset_path.split("-")) > 1:
+                    utilization = int(jobset_path.split("-")[1])
+                    ET_ratio = int(jobset_path.split("-")[2])
+                    runnable_number = int(jobset_path.split("-")[3])
+                    instance_number = int(jobset_path.split("-")[4][:-4])
+                else:
+                    self.save_statistics = False
 
                 jobset_path = jobset_folder + jobset_path
 
@@ -132,7 +139,9 @@ class SAG_constructor:
 
                 # Save SAG as dot file
                 if self.save_dot:
-                    SAG_constructor.save_SAG(self.save_dot)
+                    if not os.path.exists(self.save_dot):
+                        os.makedirs(self.save_dot)
+                    SAG_constructor.save_SAG(self.save_dot, jobset_path.split("/")[-1])
 
 
 def str_list(value):
@@ -160,8 +169,8 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--save_dot",
-        type=bool,
-        default=False,
+        type=str,
+        default="./dotfiles/",
         help="Whether to save SAG as dot file",
     )
     parser.add_argument(

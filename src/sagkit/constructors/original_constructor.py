@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-25 23:52:09
+LastEditTime: 2024-12-26 01:30:44
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: Original constructor
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -177,8 +177,8 @@ class Constructor:
     # Output the SAG in .dot format
     # https://dreampuf.github.io/GraphvizOnline to visualize the SAG
     # If that doesn't work, try viewing the site in incognito mode
-    def save_SAG(self, save_folder: str) -> None:
-        with open(save_folder + self.header + ".dot", "w") as dot_file:
+    def save_SAG(self, save_folder: str, jobset_path: str) -> None:
+        with open(save_folder + self.header + "_" + jobset_path, "w") as dot_file:
             dot_file.write(
                 "digraph finite_state_machine {\n"
                 + "rankdir = LR;\n"
