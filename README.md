@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-25 17:01:09
+ * @LastEditTime: 2024-12-25 18:11:56
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -62,6 +62,7 @@ The SAG constructor takes the following arguments:
 * --constructor_type: What constructor(s) to use to do the construction. Default are "original,extended,hybrid".
 * --save_dot: Which folder to save the dot files. Default is "./dotfiles/".
 * --save_statistics: Which path to save the statistics results. Default is "./statistics.csv".
+
 Construct SAGs:
 ```
 python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [save_statistics]
