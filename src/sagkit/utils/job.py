@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:59:56
-LastEditTime: 2024-12-22 20:05:55
+LastEditTime: 2024-12-25 23:55:16
 FilePath: \\sagkit\\src\\sagkit\\utils\\job.py
-Description: 
+Description: Job class for SAG construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -42,12 +42,14 @@ class Job:
         self.BCET = self.BCET_REC
         self.WCET = self.WCET_REC
 
+    # Determine if the job is priority-eligible at a given time
     def is_priority_eligible(self, future_jobs: List, time: int) -> bool:
         for future_job in future_jobs:
             if (future_job.WCAT <= time) and FP_Scheduler.compare(future_job, self):
                 return False
         return True
 
+    # Determine if the job is potentially the next job to be scheduled
     def is_potentially_next(self, future_jobs: List, time: int, state_LFT: int) -> bool:
         if self.BCAT <= state_LFT:
             return True

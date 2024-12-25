@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-25 17:03:29
+LastEditTime: 2024-12-26 00:00:40
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
-Description: 
+Description: Construct SAGs with specified construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -30,6 +30,7 @@ class SAG_constructor:
         self.save_dot = save_dot
         self.save_statistics = save_statistics
 
+    # Construct SAGs with specified construction algorithms
     def construct(self):
 
         # Read jobsets and sort them
@@ -48,7 +49,7 @@ class SAG_constructor:
         print(jobset_paths)
 
         # Remove old statistics file if it exists
-        if self.save_statistics != "" and os.path.exists(self.save_statistics):
+        if self.save_statistics and os.path.exists(self.save_statistics):
             os.remove(self.save_statistics)
 
         # Construct SAGs with different construction algorithms
@@ -73,12 +74,14 @@ class SAG_constructor:
                 "Construction time (ns)",
             ]
 
-            if self.save_statistics != "":
+            # Write header to statistics file
+            if self.save_statistics:
                 with open(self.save_statistics, "a", newline="") as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow(type)
                     writer.writerow(header)
 
+            # Construct SAGs on each jobset
             for jobset_path in tqdm(jobset_paths):
                 utilization = int(jobset_path.split("-")[1])
                 ET_ratio = int(jobset_path.split("-")[2])
@@ -108,6 +111,7 @@ class SAG_constructor:
                     SAG_constructor.do_statistics()
                 )
 
+                # Write statistics to statistics file
                 if self.save_statistics:
                     with open(self.save_statistics, "a", newline="") as csvfile:
                         writer = csv.writer(csvfile)
@@ -126,6 +130,7 @@ class SAG_constructor:
                             ]
                         )
 
+                # Save SAG as dot file
                 if self.save_dot:
                     SAG_constructor.save_SAG(self.save_dot)
 
@@ -140,7 +145,7 @@ def str_list(value):
 if __name__ == "__main__":
 
     # Parse arguments
-    parser = argparse.ArgumentParser(description="Generate a jobset")
+    parser = argparse.ArgumentParser(description="Construct SAGs")
     parser.add_argument(
         "--jobset_folder",
         type=str,

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-25 23:08:13
+LastEditTime: 2024-12-25 23:46:08
 FilePath: \\sagkit\\tests\\constructors\\test_original_constructor.py
 Description: Unit tests for the Constructor class in src/sagkit/constructors/original_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -20,6 +20,7 @@ from sagkit.constructors.original_constructor import Constructor
 
 class TestOriginalConstructor(unittest.TestCase):
 
+    # Set up test jobs file
     @classmethod
     def setUpClass(cls):
         test_file_path = os.path.abspath(
@@ -30,6 +31,7 @@ class TestOriginalConstructor(unittest.TestCase):
         test_jobs.write("2 3 4 5 6 7 1\n")
         test_jobs.close()
 
+    # Remove test jobs file
     @classmethod
     def tearDownClass(cls):
         test_file_path = os.path.abspath(
@@ -37,9 +39,11 @@ class TestOriginalConstructor(unittest.TestCase):
         )
         os.remove(test_file_path)
 
+    # Set up constructor
     def setUp(self):
         self.constructor = Constructor(["original"])
 
+    # Test read_jobs method
     def test_read_jobs(self):
         test_file_path = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
@@ -68,6 +72,7 @@ class TestOriginalConstructor(unittest.TestCase):
         self.assertEqual(self.constructor.job_list[1].priority, 7)
         self.assertTrue(self.constructor.job_list[1].is_ET)
 
+    # Test find_shortest_leaf method
     def test_construct_SAG(self):
         self.constructor.construct_SAG()
         self.assertEqual(len(self.constructor.state_list), 1)
@@ -104,6 +109,7 @@ class TestOriginalConstructor(unittest.TestCase):
         self.assertEqual(self.constructor.state_list[2].EFT, 8)
         self.assertEqual(self.constructor.state_list[2].LFT, 11)
 
+    # Test match method
     def test_count_execution_scenarios(self):
         self.assertEqual(self.constructor.count_execution_scenarios(), (0, 0))
         test_file_path = os.path.abspath(
@@ -115,6 +121,7 @@ class TestOriginalConstructor(unittest.TestCase):
             (1.380211241711606, 1.2041199826559248),
         )
 
+    # Test count_idle_time method
     def test_count_idle_time(self):
         self.assertEqual(self.constructor.count_idle_time(), 0)
         test_file_path = os.path.abspath(

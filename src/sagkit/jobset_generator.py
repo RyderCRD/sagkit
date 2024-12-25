@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-12-25 21:04:53
+LastEditTime: 2024-12-25 23:56:03
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
-Description: 
+Description: Generate jobsets for the SAG construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -26,7 +26,7 @@ class Jobset_generator:
         )
         self.num_job = [num_job] if isinstance(num_job, int) else num_job
 
-    def run(self, jobset_folder):
+    def generate(self, jobset_folder):
         param_combinations = list(
             itertools.product(self.ET_ratio, self.utilization, self.num_job)
         )
@@ -155,5 +155,5 @@ if __name__ == "__main__":
     generator = Jobset_generator(
         args.num_instance, args.ET_ratio, args.utilization, args.num_job
     )
-    generator.run(args.jobset_folder)
+    generator.generate(args.jobset_folder)
     print("Successfully generated jobsets!")

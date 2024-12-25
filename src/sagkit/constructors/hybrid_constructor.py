@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-10 00:13:32
-LastEditTime: 2024-12-25 21:19:59
+LastEditTime: 2024-12-25 23:51:41
 FilePath: \\sagkit\\src\\sagkit\\constructors\\hybrid_constructor.py
-Description: 
+Description: Hybrid constructor
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -16,6 +16,7 @@ from sagkit.constructors import Constructor
 
 class Hybrid_constructor(Constructor):
 
+    # Override read_jobs method of the Constructor class
     def construct_SAG(self):
         # Initialize root state
         self.state_list = []
@@ -63,6 +64,7 @@ class Hybrid_constructor(Constructor):
             except Exception as e:
                 print(e, traceback.format_exc())
 
+    # Override count_execution_scenarios method of the Constructor class
     def count_execution_scenarios(self):
         actual_es_counter = 1
         for job in self.job_list:
@@ -75,5 +77,6 @@ class Hybrid_constructor(Constructor):
         analyzed_es_counter = actual_es_counter
         return actual_es_counter, analyzed_es_counter
 
+    # Override count_idle_time method of the Constructor class
     def count_idle_time(self):
         return 0

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-25 23:07:39
+LastEditTime: 2024-12-25 23:47:47
 FilePath: \\sagkit\\tests\\constructors\\test_hybrid_constructor.py
 Description: Unit tests for the Hybrid_constructor class in src/sagkit/utils/hybrid_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -20,6 +20,7 @@ from sagkit.constructors.hybrid_constructor import Hybrid_constructor
 
 class TestHybridConstructor(unittest.TestCase):
 
+    # Create a test file for the test cases
     @classmethod
     def setUpClass(cls):
         test_file_path = os.path.abspath(
@@ -30,6 +31,7 @@ class TestHybridConstructor(unittest.TestCase):
         test_jobs.write("2 3 4 5 6 7 1\n")
         test_jobs.close()
 
+    # Remove the test file after the test cases
     @classmethod
     def tearDownClass(cls):
         test_file_path = os.path.abspath(
@@ -37,9 +39,11 @@ class TestHybridConstructor(unittest.TestCase):
         )
         os.remove(test_file_path)
 
+    # Initialize the constructor object
     def setUp(self):
         self.constructor = Hybrid_constructor(["hybrid"])
 
+    # Test the read_jobs method
     def test_construct_SAG(self):
         test_file_path = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
@@ -64,6 +68,7 @@ class TestHybridConstructor(unittest.TestCase):
         self.assertEqual(self.constructor.state_list[3].EFT, 4)
         self.assertEqual(self.constructor.state_list[3].LFT, 6)
 
+    # Test the count_execution_scenarios method
     def test_count_execution_scenarios(self):
         self.assertEqual(self.constructor.count_execution_scenarios(), (0, 0))
         test_file_path = os.path.abspath(
@@ -75,6 +80,7 @@ class TestHybridConstructor(unittest.TestCase):
             (1.380211241711606, 1.380211241711606),
         )
 
+    # Test the count_idle_time method
     def test_count_idle_time(self):
         self.assertEqual(self.constructor.count_idle_time(), 0)
         test_file_path = os.path.abspath(

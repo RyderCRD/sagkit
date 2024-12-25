@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-25 21:15:10
+LastEditTime: 2024-12-25 23:52:09
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
-Description: 
+Description: Original constructor
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -14,7 +14,6 @@ from sagkit.utils import Job, State
 
 
 class Constructor:
-
     def __init__(self, header, to_merge=True) -> None:
         self.job_list = []
         self.state_list = []
@@ -49,9 +48,9 @@ class Constructor:
         shortest_leaf = min(leaves, key=lambda x: x.depth)
         return shortest_leaf
 
+    # Match two states
     @staticmethod
     def match(a: State, b: State) -> bool:
-        # Match two states
         if a.depth != b.depth:
             return False
         return max(a.EFT, b.EFT) <= min(a.LFT, b.LFT) and sorted(
@@ -82,13 +81,14 @@ class Constructor:
         self.state_list.append(successor_state)
         leaf.next_states.append(successor_state)
 
+    # Construct SAG
     def construct_SAG(self) -> None:
         # Initialize root state
         self.state_list = []
         SAG_root = State(len(self.state_list), 0, 0, [])
         self.state_list.append(SAG_root)
 
-        # Construct SAG
+        # Start to construct SAG
         shortest_leaf = SAG_root
         while shortest_leaf.depth < len(self.job_list):
             # with tqdm(
@@ -121,6 +121,7 @@ class Constructor:
             except Exception as e:
                 print(e, traceback.format_exc())
 
+    # Count the number of execution scenarios
     def count_execution_scenarios(self):
         actual_es_counter = 1
         analyzed_es_counter = 1
@@ -139,15 +140,15 @@ class Constructor:
         analyzed_es_counter = math.log10(analyzed_es_counter)
         return actual_es_counter, analyzed_es_counter
 
+    # Count the maximum idle time
     def count_idle_time(self):
         idle_time = 0
         for job in self.job_list:
             idle_time += job.BCET if job.is_ET else 0
         return idle_time
 
+    # Do some statistics
     def do_statistics(self):
-        # Print some statistics
-
         # Number of states
         print("Number of states:", len(self.state_list))
 

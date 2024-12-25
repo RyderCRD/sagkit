@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-25 00:58:22
+LastEditTime: 2024-12-26 00:04:16
 FilePath: \\sagkit\\tests\\test_jobset_generator.py
-Description: 
+Description: Unit tests for Jobset_generator class in src/sagkit/jobset_generator.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -39,12 +39,10 @@ class TestJobsetGenerator(unittest.TestCase):
         num_ins = 1
         ET_ratio = [0, 10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         utilization = [45, 50, 55, 60, 65, 70, 75]
-        num_runnable = 1000
+        num_job = 1000
         output_folder = "./temp_jobsets/"
-        jobset_generator = Jobset_generator(
-            num_ins, ET_ratio, utilization, num_runnable
-        )
-        jobset_generator.run(output_folder)
+        jobset_generator = Jobset_generator(num_ins, ET_ratio, utilization, num_job)
+        jobset_generator.generate(output_folder)
         self.assertTrue(os.path.exists(output_folder))
 
         jobset_folder = output_folder

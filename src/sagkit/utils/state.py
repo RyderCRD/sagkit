@@ -1,9 +1,9 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 18:00:00
-LastEditTime: 2024-11-08 17:19:19
+LastEditTime: 2024-12-25 23:55:38
 FilePath: \\sagkit\\src\\sagkit\\utils\\state.py
-Description: 
+Description: State class for SAG construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
 """
 
@@ -20,6 +20,7 @@ class State:
         self.next_jobs = []
         self.next_states = []
 
+    # Determine if the state is a leaf node
     def is_leaf(self) -> bool:
         return len(self.next_states) == 0
 
