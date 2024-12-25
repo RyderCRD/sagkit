@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-26 02:05:19
+ * @LastEditTime: 2024-12-26 02:17:19
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -86,11 +86,11 @@ python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [
     https://dreampuf.github.io/GraphvizOnline (you may want to access in incognito mode.)
     ```
 
-## Example Usage (Automatically generate 9 jobsets)
+## Example Usage (Automatically generate 84 jobsets)
 
 1. Generate jobsets:
     ```
-    python -m sagkit.jobset_generator --ET_ratio 0,15,30 --utilization 45,50,55
+    python -m sagkit.jobset_generator --ET_ratio 0,10,15,20,30,40,50,60,70,80,90,100 --utilization 45,50,55,60,65,70,75
     ```
 
 2. Construct SAGs:
