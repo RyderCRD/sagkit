@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-22 20:24:04
+LastEditTime: 2024-12-25 23:08:13
 FilePath: \\sagkit\\tests\\constructors\\test_original_constructor.py
 Description: Unit tests for the Constructor class in src/sagkit/constructors/original_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -38,7 +38,7 @@ class TestOriginalConstructor(unittest.TestCase):
         os.remove(test_file_path)
 
     def setUp(self):
-        self.constructor = Constructor(["original"], True)
+        self.constructor = Constructor(["original"])
 
     def test_read_jobs(self):
         test_file_path = os.path.abspath(
@@ -69,7 +69,7 @@ class TestOriginalConstructor(unittest.TestCase):
         self.assertTrue(self.constructor.job_list[1].is_ET)
 
     def test_construct_SAG(self):
-        self.constructor.construct_SAG(True)
+        self.constructor.construct_SAG()
         self.assertEqual(len(self.constructor.state_list), 1)
         self.assertEqual(self.constructor.state_list[0].id, 0)
         self.assertEqual(self.constructor.state_list[0].EFT, 0)
@@ -83,7 +83,7 @@ class TestOriginalConstructor(unittest.TestCase):
             os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
         )
         self.constructor.read_jobs(test_file_path)
-        self.constructor.construct_SAG(True)
+        self.constructor.construct_SAG()
 
         self.assertEqual(len(self.constructor.state_list), 3)
         self.assertEqual(self.constructor.state_list[0].id, 0)

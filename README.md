@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-25 18:11:56
+ * @LastEditTime: 2024-12-25 19:58:34
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -48,13 +48,13 @@ cd src
 The jobset generator takes the following arguments:
 * --ET_ratio: What percentage of jobs are ET. Default is 15.
 * --utilization: What percentage of the macrocycle is the expectation of the total execution time. Default is 45.
-* --output: Which folder to save the jobsets. Default is "./jobsets/".
+* --jobset_folder: Which folder to save the jobsets. Default is "./jobsets/".
 * --num_job: How many jobs to include in each job set. Default is 1000.
 * --num_instance: How many jobsets to generate for each set of parameter combinations. Default is 1.
 
 Generate jobsets:
 ```
-python -m sagkit.jobset_generator [ET_ratio] [utilization] [output] [num_runnable] [num_instance]
+python -m sagkit.jobset_generator [ET_ratio] [utilization] [jobset_folder] [num_job] [num_instance]
 ```
 
 The SAG constructor takes the following arguments:

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-12-25 01:08:38
+LastEditTime: 2024-12-25 21:04:53
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -18,26 +18,24 @@ random.seed(2024)
 
 
 class Jobset_generator:
-    def __init__(self, num_ins, ET_ratio, utilization, num_runnable):
+    def __init__(self, num_ins, ET_ratio, utilization, num_job):
         self.num_ins = num_ins
         self.ET_ratio = [ET_ratio] if isinstance(ET_ratio, int) else ET_ratio
         self.utilization = (
             [utilization] if isinstance(utilization, int) else utilization
         )
-        self.num_runnable = (
-            [num_runnable] if isinstance(num_runnable, int) else num_runnable
-        )
+        self.num_job = [num_job] if isinstance(num_job, int) else num_job
 
-    def run(self, output_folder):
+    def run(self, jobset_folder):
         param_combinations = list(
-            itertools.product(self.ET_ratio, self.utilization, self.num_runnable)
+            itertools.product(self.ET_ratio, self.utilization, self.num_job)
         )
         num_param_combinations = len(param_combinations)
         for ins in range(self.num_ins):
             with tqdm(
                 total=num_param_combinations, desc=f"Instance {ins+1}/{self.num_ins}"
             ) as pbar:
-                for _, (ET_ratio, utilization, num_runnable) in enumerate(
+                for _, (ET_ratio, utilization, num_job) in enumerate(
                     param_combinations
                 ):
                     try:
@@ -51,7 +49,7 @@ class Jobset_generator:
                         ET_list = []
 
                         # Generate jobset
-                        for j in range(num_runnable):
+                        for j in range(num_job):
                             # Best-case arrival time
                             BCAT = random.randint(1, 9990)
                             BCAT_list.append(BCAT)
@@ -72,22 +70,22 @@ class Jobset_generator:
                             )
 
                         # Create output folder if not exists
-                        output_folder = output_folder
-                        if not os.path.exists(output_folder):
-                            os.makedirs(output_folder)
+                        jobset_folder = jobset_folder
+                        if not os.path.exists(jobset_folder):
+                            os.makedirs(jobset_folder)
 
                         # Write to file
                         with open(
-                            output_folder
+                            jobset_folder
                             + "/jobset-"
                             + f"{utilization}-"
                             + f"{ET_ratio}"
-                            + f"-{num_runnable}-"
+                            + f"-{num_job}-"
                             + f"{ins+1}"
                             + ".txt",
                             "w",
                         ) as dot_file:
-                            for j in range(num_runnable):
+                            for j in range(num_job):
                                 dot_file.write(
                                     str(BCAT_list[j])
                                     + " "
@@ -121,41 +119,41 @@ def int_or_int_list(value):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a jobset")
+    parser = argparse.ArgumentParser(description="Generate jobsets")
     parser.add_argument(
         "--ET_ratio",
         type=int_or_int_list,
         default=15,
-        help="Event-triggered ratio",
+        help="What percentage of jobs are ET. Default is 15.",
     )
     parser.add_argument(
         "--utilization",
         type=int_or_int_list,
         default=45,
-        help="Utilization",
+        help="What percentage of the macrocycle is the expectation of the total execution time. Default is 45.",
     )
     parser.add_argument(
-        "--output",
+        "--jobset_folder",
         type=str,
         default="./jobsets/",
-        help="Output folder path",
+        help='Which folder to save the jobsets. Default is "./jobsets/".',
     )
     parser.add_argument(
-        "--num_runnable",
+        "--num_job",
         type=int_or_int_list,
         default=1000,
-        help="Number of runnables",
+        help="How many jobs to include in each job set. Default is 1000.",
     )
     parser.add_argument(
         "--num_instance",
         type=int,
         default=1,
-        help="Number of instances",
+        help="How many jobsets to generate for each set of parameter combinations. Default is 1.",
     )
 
     args = parser.parse_args()
     generator = Jobset_generator(
-        args.num_instance, args.ET_ratio, args.utilization, args.num_runnable
+        args.num_instance, args.ET_ratio, args.utilization, args.num_job
     )
-    generator.run(args.output)
+    generator.run(args.jobset_folder)
     print("Successfully generated jobsets!")

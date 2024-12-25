@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-25 17:04:16
+LastEditTime: 2024-12-25 21:15:10
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -15,11 +15,11 @@ from sagkit.utils import Job, State
 
 class Constructor:
 
-    def __init__(self, header, do_merging=True) -> None:
+    def __init__(self, header, to_merge=True) -> None:
         self.job_list = []
         self.state_list = []
         self.header = header
-        self.do_merging = do_merging
+        self.to_merge = to_merge
 
     # Read jobs from file
     def read_jobs(self, file_path: str) -> None:
@@ -59,7 +59,7 @@ class Constructor:
         ) == sorted(b.job_path, key=lambda s: s.id)
 
     # Expansion phase with or without merging
-    def expand(self, leaf: State, job: Job, do_merge: bool) -> None:
+    def expand(self, leaf: State, job: Job, to_merge: bool) -> None:
         EFT = max(leaf.EFT, job.BCAT) + job.BCET
         future_jobs = [j for j in self.job_list if j not in leaf.job_path]
         t_H = sys.maxsize
@@ -71,7 +71,7 @@ class Constructor:
         successor_state = State(len(self.state_list), EFT, LFT, leaf.job_path + [job])
         # print('State No.', len(state_list))
         leaf.next_jobs.append(job)
-        if do_merge:
+        if to_merge:
             for state in self.state_list:
                 if self.match(state, successor_state):
                     # if leaf.next_states.count(state) == 0:
@@ -82,7 +82,7 @@ class Constructor:
         self.state_list.append(successor_state)
         leaf.next_states.append(successor_state)
 
-    def construct_SAG(self, do_merging):
+    def construct_SAG(self) -> None:
         # Initialize root state
         self.state_list = []
         SAG_root = State(len(self.state_list), 0, 0, [])
@@ -114,7 +114,7 @@ class Constructor:
                     self.expand(
                         leaf=shortest_leaf,
                         job=eligible_successor,
-                        do_merge=do_merging,
+                        to_merge=self.to_merge,
                     )
                 shortest_leaf = self.find_shortest_leaf()
                 # pbar.n = shortest_leaf.depth

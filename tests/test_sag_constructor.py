@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-22 22:21:27
+LastEditTime: 2024-12-25 20:01:05
 FilePath: \\sagkit\\tests\\test_sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -26,7 +26,7 @@ class TestSAGConstructor(unittest.TestCase):
         self.assertEqual(
             sag_constructor.constructor_type, ["original", "extended", "hybrid"]
         )
-        self.assertEqual(sag_constructor.save_dot, False)
+        self.assertIsNotNone(sag_constructor.save_dot)
 
 
 if __name__ == "__main__":

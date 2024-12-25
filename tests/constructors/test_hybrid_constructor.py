@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-22 20:23:58
+LastEditTime: 2024-12-25 23:07:39
 FilePath: \\sagkit\\tests\\constructors\\test_hybrid_constructor.py
 Description: Unit tests for the Hybrid_constructor class in src/sagkit/utils/hybrid_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -38,14 +38,14 @@ class TestHybridConstructor(unittest.TestCase):
         os.remove(test_file_path)
 
     def setUp(self):
-        self.constructor = Hybrid_constructor(["hybrid"], True)
+        self.constructor = Hybrid_constructor(["hybrid"])
 
     def test_construct_SAG(self):
         test_file_path = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
         )
         self.constructor.read_jobs(test_file_path)
-        self.constructor.construct_SAG(True)
+        self.constructor.construct_SAG()
         self.assertEqual(len(self.constructor.state_list), 4)
         self.assertEqual(self.constructor.state_list[0].id, 0)
         self.assertEqual(self.constructor.state_list[0].depth, 0)
@@ -81,7 +81,7 @@ class TestHybridConstructor(unittest.TestCase):
             os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
         )
         self.constructor.read_jobs(test_file_path)
-        self.constructor.construct_SAG(True)
+        self.constructor.construct_SAG()
         self.assertEqual(self.constructor.count_idle_time(), 0)
 
 

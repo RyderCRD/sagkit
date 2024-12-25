@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-10 00:13:32
-LastEditTime: 2024-12-22 18:03:21
+LastEditTime: 2024-12-25 21:19:59
 FilePath: \\sagkit\\src\\sagkit\\constructors\\hybrid_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -16,7 +16,7 @@ from sagkit.constructors import Constructor
 
 class Hybrid_constructor(Constructor):
 
-    def construct_SAG(self, do_merging):
+    def construct_SAG(self):
         # Initialize root state
         self.state_list = []
         SAG_root = State(len(self.state_list), 0, 0, [])
@@ -48,14 +48,14 @@ class Hybrid_constructor(Constructor):
                     self.expand(
                         leaf=shortest_leaf,
                         job=eligible_successor,
-                        do_merge=do_merging,
+                        to_merge=self.to_merge,
                     )
                     if eligible_successor.is_ET:
                         eligible_successor.set_to_non_triggered()
                         self.expand(
                             leaf=shortest_leaf,
                             job=eligible_successor,
-                            do_merge=True,
+                            to_merge=self.to_merge,
                         )
                         eligible_successor.set_to_triggered()
                 shortest_leaf = self.find_shortest_leaf()
