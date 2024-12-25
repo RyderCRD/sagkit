@@ -1,7 +1,7 @@
 <!--
  * @Author: Ruide Cao (caoruide123@gmail.com)
  * @Date: 2024-12-22 02:14:46
- * @LastEditTime: 2024-12-23 15:01:08
+ * @LastEditTime: 2024-12-25 17:01:09
  * @FilePath: \\sagkit\\README.md
  * @Description: README
  * Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -45,13 +45,26 @@ Change direcotry to ./src:
 ```
 cd src
 ```
+The jobset generator takes the following arguments:
+* --ET_ratio: What percentage of jobs are ET. Default is 15.
+* --utilization: What percentage of the macrocycle is the expectation of the total execution time. Default is 45.
+* --output: Which folder to save the jobsets. Default is "./jobsets/".
+* --num_job: How many jobs to include in each job set. Default is 1000.
+* --num_instance: How many jobsets to generate for each set of parameter combinations. Default is 1.
+
 Generate jobsets:
 ```
-python3 -m tsnkit.models.[NUM_INSTANCE] [STREAM PATH] [NETWORK PATH]
+python -m sagkit.jobset_generator [ET_ratio] [utilization] [output] [num_runnable] [num_instance]
 ```
+
+The SAG constructor takes the following arguments:
+* --jobset_folder: Which folder to read the jobsets. Default is "./jobsets/".
+* --constructor_type: What constructor(s) to use to do the construction. Default are "original,extended,hybrid".
+* --save_dot: Which folder to save the dot files. Default is "./dotfiles/".
+* --save_statistics: Which path to save the statistics results. Default is "./statistics.csv".
 Construct SAGs:
 ```
-python3 -m tsnkit.models.[METHOD] [STREAM PATH] [NETWORK PATH]
+python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [save_statistics]
 ```
 
 ## Reproduce

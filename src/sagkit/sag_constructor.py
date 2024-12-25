@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-25 01:07:56
+LastEditTime: 2024-12-25 17:03:29
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: 
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -22,7 +22,7 @@ class SAG_constructor:
         self,
         jobset_folder="./jobsets/",
         constructor_type=["original", "extended", "hybrid"],
-        save_dot=False,
+        save_dot="./dotfiles/",
         save_statistics="./statistics.csv",
     ):
         self.jobset_folder = jobset_folder
@@ -127,7 +127,7 @@ class SAG_constructor:
                         )
 
                 if self.save_dot:
-                    SAG_constructor.save_SAG()
+                    SAG_constructor.save_SAG(self.save_dot)
 
 
 def str_list(value):
