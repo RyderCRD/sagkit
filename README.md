@@ -43,7 +43,7 @@ python -m sagkit.jobset_generator [ET_ratio] [utilization] [jobset_folder] [num_
 
 The SAG constructor takes the following arguments:
 * --jobset_folder: Which folder to read the jobsets. Default is "./jobsets/".
-* --constructor_type: What constructor(s) to use to do the construction. Default are "original,extended,hybrid".
+* --constructor_type: What constructor(s) to use to do the construction. Default is "original,extended,hybrid".
 * --save_dot: Which folder to save the dot files. Default is "./dotfiles/".
 * --save_statistics: Which path to save the statistics results. Default is "./statistics.csv".
 
@@ -57,7 +57,7 @@ python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [
 
 2. Create a file 'example.txt' in the /example/ folder.
 
-3. Write the followint content (Fig. 4 example in our paper) into example.txt.
+3. Write the following content (Fig. 4 example in our paper) into example.txt.
     ```
     0 2 9 10 20 1 1
     1 2 5 6 25 4 0
