@@ -12,7 +12,7 @@
 # SAGkit
 
 
-A toolkit for constructing and analyzing schedule-abstraction graph in Python.
+A lightweight Python toolkit for response-time analysis based on schedule-abstraction graph.
 You may also be interested in [Official SAG repository (in C++)](https://github.com/SAG-org/schedule_abstraction-main), [sag-go (in GO)](https://github.com/porya-gohary/sag-go), and [sag-py (in Python)](https://github.com/RaduLucianR/sag-py).
 
 ## Install
