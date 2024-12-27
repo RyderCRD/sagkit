@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-26 01:30:00
+LastEditTime: 2024-12-28 01:28:20
 FilePath: \\sagkit\\src\\sagkit\\sag_constructor.py
 Description: Construct SAGs with specified construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -33,7 +33,7 @@ class SAG_constructor:
     # Construct SAGs with specified construction algorithms
     def construct(self):
 
-        # Read jobsets and sort them
+        # Read all jobsets in the jobset folder
         jobset_folder = self.jobset_folder
         jobset_paths = os.listdir(jobset_folder)
 
@@ -48,8 +48,8 @@ class SAG_constructor:
                 )
             )
             print(jobset_paths)
+        # In case jobset file names are not in the automatic format, do not sort
         except IndexError:
-            # In case jobset file names are not in the automatic format
             pass
 
         # Remove old statistics file if it exists
@@ -70,9 +70,9 @@ class SAG_constructor:
                 "Utilization",
                 "ET_Ratio",
                 "Number of States",
-                "Number of actual execution scenarios",
-                "Number of analyzed execution scenarios",
-                "Valid ratio of analyzed SAG:",
+                "Number of actual execution scenarios (log10)",
+                "Number of analyzed execution scenarios (log10)",
+                "Valid ratio of analyzed SAG (log10)",
                 "Maximum width",
                 "Maximum idle time",
                 "Construction time (ns)",
