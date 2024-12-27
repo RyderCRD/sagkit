@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-28 02:31:16
+LastEditTime: 2024-12-28 02:46:56
 FilePath: \\sagkit\\tests\\constructors\\test_original_constructor.py
 Description: Unit tests for the Constructor class in src/sagkit/constructors/original_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -138,12 +138,12 @@ class TestOriginalConstructor(unittest.TestCase):
         self.constructor.read_jobs(test_file_path)
         self.constructor.construct_SAG()
         self.constructor.save_SAG("test_", "SAG.txt")
-        print(os.path.abspath)
         self.assertTrue(os.path.exists("test_original_SAG.txt"))
         # No idea how to keep the indentation, please help
-        self.assertEqual(
-            open("test_original_SAG.txt").read(),
-            """digraph finite_state_machine {
+        with open("test_original_SAG.txt") as f:
+            self.assertEqual(
+                f.read(),
+                """digraph finite_state_machine {
 rankdir = LR;
 size = "8,5";
 node [shape = doublecircle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];
@@ -152,7 +152,7 @@ node [shape = circle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1
 "S1\\n[0, 0]" -> "S2\\n[4, 6]" [label="J1", fontsize=20];
 "S2\\n[4, 6]" -> "S3\\n[8, 11]" [label="J2", fontsize=20];
 }""",
-        )
+            )
         os.remove("test_original_SAG.txt")
 
 
