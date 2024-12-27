@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-28 02:04:04
+LastEditTime: 2024-12-28 03:02:42
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: Original constructor
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -24,17 +24,17 @@ class Constructor:
     def read_jobs(self, file_path: str) -> None:
         input_file = open(file_path, "r")
         for job in input_file:
-            job = job.split()
+            BCAT, WCAT, BCET, WCET, DDL, priority, ET = map(int, job.split())
             self.job_list.append(
                 Job(
                     len(self.job_list),
-                    int(job[0]),
-                    int(job[1]),
-                    int(job[2]),
-                    int(job[3]),
-                    int(job[4]),
-                    int(job[5]),
-                    int(job[6]),
+                    BCAT,
+                    WCAT,
+                    BCET,
+                    WCET,
+                    DDL,
+                    priority,
+                    ET,
                 )
             )
         input_file.close()
