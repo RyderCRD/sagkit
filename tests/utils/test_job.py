@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-28 01:49:57
+LastEditTime: 2024-12-28 02:16:38
 FilePath: \\sagkit\\tests\\utils\\test_job.py
 Description: Unit tests for State class in src/sagkit/utils/state.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -49,6 +49,7 @@ class TestJob(unittest.TestCase):
         future_jobs = [Job(2, 2, 2, 2, 2, 2, 2, 2)]
         self.assertTrue(self.job.is_potentially_next(future_jobs, 1, 1))
 
+    # Test the __str__ method
     def test___str__(self):
         self.assertEqual(str(self.job), "1 1 1 1 1 1 1")
 

@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-12-22 16:32:13
-LastEditTime: 2024-12-25 23:46:08
+LastEditTime: 2024-12-28 02:31:16
 FilePath: \\sagkit\\tests\\constructors\\test_original_constructor.py
 Description: Unit tests for the Constructor class in src/sagkit/constructors/original_constructor.py
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -41,7 +41,7 @@ class TestOriginalConstructor(unittest.TestCase):
 
     # Set up constructor
     def setUp(self):
-        self.constructor = Constructor(["original"])
+        self.constructor = Constructor("original")
 
     # Test read_jobs method
     def test_read_jobs(self):
@@ -129,6 +129,31 @@ class TestOriginalConstructor(unittest.TestCase):
         )
         self.constructor.read_jobs(test_file_path)
         self.assertEqual(self.constructor.count_idle_time(), 4)
+
+    # Test save_SAG method
+    def test_save_SAG(self):
+        test_file_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../../test_jobs.txt")
+        )
+        self.constructor.read_jobs(test_file_path)
+        self.constructor.construct_SAG()
+        self.constructor.save_SAG("test_", "SAG.txt")
+        print(os.path.abspath)
+        self.assertTrue(os.path.exists("test_original_SAG.txt"))
+        # No idea how to keep the indentation, please help
+        self.assertEqual(
+            open("test_original_SAG.txt").read(),
+            """digraph finite_state_machine {
+rankdir = LR;
+size = "8,5";
+node [shape = doublecircle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];
+"S1\\n[0, 0]";
+node [shape = circle, fontsize = 20, fixedsize = true, width = 1.1, height = 1.1];
+"S1\\n[0, 0]" -> "S2\\n[4, 6]" [label="J1", fontsize=20];
+"S2\\n[4, 6]" -> "S3\\n[8, 11]" [label="J2", fontsize=20];
+}""",
+        )
+        os.remove("test_original_SAG.txt")
 
 
 if __name__ == "__main__":

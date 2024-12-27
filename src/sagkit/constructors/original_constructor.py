@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 21:09:02
-LastEditTime: 2024-12-26 01:30:44
+LastEditTime: 2024-12-28 02:04:04
 FilePath: \\sagkit\\src\\sagkit\\constructors\\original_constructor.py
 Description: Original constructor
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -190,20 +190,8 @@ class Constructor:
             for state in self.state_list:
                 for i in range(len(state.next_jobs)):
                     dot_file.write(
-                        '"S'
-                        + str(state.id + 1)
-                        + "\\n["
-                        + str(state.EFT)
-                        + ", "
-                        + str(state.LFT)
-                        + ']" -> "S'
-                        + str(state.next_states[i].id + 1)
-                        + "\\n["
-                        + str(state.next_states[i].EFT)
-                        + ", "
-                        + str(state.next_states[i].LFT)
-                        + ']" [label="J'
-                        + str(state.next_jobs[i].id + 1)
-                        + '", fontsize = 20];\n'
+                        f'"S{state.id + 1}\\n[{state.EFT}, {state.LFT}]" -> '
+                        f'"S{state.next_states[i].id + 1}\\n[{state.next_states[i].EFT}, {state.next_states[i].LFT}]" '
+                        f'[label="J{state.next_jobs[i].id + 1}", fontsize=20];\n'
                     )
             dot_file.write("}")
