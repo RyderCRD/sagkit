@@ -93,7 +93,7 @@ python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [
     python -m sagkit.jobset_generator --ET_ratio 0,10,15,20,30,40,50,60,70,80,90,100 --utilization 45,50,55,60,65,70,75
     ```
 
-2. Construct SAGs:
+2. Construct SAGs (29 hours on my computer):
     ```
     python -m sagkit.sag_constructor --jobset_folder ./jobsets/ --save_statistics ./statistics.csv
     ```
