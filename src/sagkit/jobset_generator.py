@@ -71,16 +71,8 @@ class Jobset_generator:
                             os.makedirs(jobset_folder)
 
                         # Write to file
-                        with open(
-                            jobset_folder
-                            + "/jobset-"
-                            + f"{utilization}-"
-                            + f"{ET_ratio}"
-                            + f"-{num_job}-"
-                            + f"{ins+1}"
-                            + ".txt",
-                            "w",
-                        ) as jobset_file:
+                        file_path = f"{jobset_folder}/jobset-{utilization}-{ET_ratio}-{num_job}-{ins+1}.txt"
+                        with open(file_path, "w") as jobset_file:
                             for job in jobs:
                                 jobset_file.write(str(job) + "\n")
 
