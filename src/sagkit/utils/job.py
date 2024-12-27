@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:59:56
-LastEditTime: 2024-12-25 23:55:16
+LastEditTime: 2024-12-28 01:51:12
 FilePath: \\sagkit\\src\\sagkit\\utils\\job.py
 Description: Job class for SAG construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -65,21 +65,4 @@ class Job:
         return True
 
     def __str__(self) -> str:
-        return (
-            "Job"
-            + str(self.id)
-            + "["
-            + str(self.BCAT)
-            + ", "
-            + str(self.WCAT)
-            + "] ["
-            + str(self.BCET)
-            + ", "
-            + str(self.WCET)
-            + "] "
-            + str(self.DDL)
-            + ", "
-            + str(self.priority)
-            + ", "
-            + str(self.is_ET)
-        )
+        return f"{self.BCAT} {self.WCAT} {self.BCET} {self.WCET} {self.DDL} {self.priority} {self.is_ET}"

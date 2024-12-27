@@ -1,7 +1,7 @@
 """
 Author: Ruide Cao (caoruide123@gmail.com)
 Date: 2024-11-05 17:53:13
-LastEditTime: 2024-12-25 23:56:03
+LastEditTime: 2024-12-28 01:49:23
 FilePath: \\sagkit\\src\\sagkit\\jobset_generator.py
 Description: Generate jobsets for the SAG construction algorithms.
 Copyright (c) 2024 by Ruide Cao, All Rights Reserved. 
@@ -13,6 +13,7 @@ import argparse
 import traceback
 import itertools
 from tqdm import tqdm
+from sagkit.utils.job import Job
 
 random.seed(2024)
 
@@ -26,6 +27,28 @@ class Jobset_generator:
         )
         self.num_job = [num_job] if isinstance(num_job, int) else num_job
 
+    # Generate jobs
+    def generate_jobs(self, num_job, utilization, ET_ratio):
+        jobs = []
+        for j in range(num_job):
+            # Best-case arrival time
+            BCAT = random.randint(1, 9990)
+            # Worst-case arrival time
+            WCAT = BCAT + random.randint(0, 9)
+            # Best-case execution time
+            BCET = random.randint(2, int(utilization / 5 - 7))
+            # Worst-case execution time
+            WCET = BCET + random.randint(1, 4)
+            # Deadline
+            DDL = 10000
+            # Priority
+            priority = random.randint(1, 10)
+            # Hybrid
+            ET = 0 if random.randint(0, 99) < 100 - ET_ratio else 1
+            jobs.append(Job(j, BCAT, WCAT, BCET, WCET, DDL, priority, ET))
+        return jobs
+
+    # Generate jobsets
     def generate(self, jobset_folder):
         param_combinations = list(
             itertools.product(self.ET_ratio, self.utilization, self.num_job)
@@ -39,35 +62,8 @@ class Jobset_generator:
                     param_combinations
                 ):
                     try:
-                        # Initialize lists
-                        BCAT_list = []
-                        WCAT_list = []
-                        BCET_list = []
-                        WCET_list = []
-                        DDL_list = []
-                        priority_list = []
-                        ET_list = []
-
-                        # Generate jobset
-                        for j in range(num_job):
-                            # Best-case arrival time
-                            BCAT = random.randint(1, 9990)
-                            BCAT_list.append(BCAT)
-                            # Worst-case arrival time
-                            WCAT_list.append(BCAT + random.randint(0, 9))
-                            # Best-case execution time
-                            BCET = random.randint(2, int(utilization / 5 - 7))
-                            BCET_list.append(BCET)
-                            # Worst-case execution time
-                            WCET_list.append(BCET + random.randint(1, 4))
-                            # Deadline
-                            DDL_list.append(10000)
-                            # Priority
-                            priority_list.append(random.randint(1, 10))
-                            # Hybrid
-                            ET_list.append(
-                                0 if random.randint(0, 99) < 100 - ET_ratio else 1
-                            )
+                        # Generate jobs
+                        jobs = self.generate_jobs(num_job, utilization, ET_ratio)
 
                         # Create output folder if not exists
                         jobset_folder = jobset_folder
@@ -84,24 +80,9 @@ class Jobset_generator:
                             + f"{ins+1}"
                             + ".txt",
                             "w",
-                        ) as dot_file:
-                            for j in range(num_job):
-                                dot_file.write(
-                                    str(BCAT_list[j])
-                                    + " "
-                                    + str(WCAT_list[j])
-                                    + " "
-                                    + str(BCET_list[j])
-                                    + " "
-                                    + str(WCET_list[j])
-                                    + " "
-                                    + str(DDL_list[j])
-                                    + " "
-                                    + str(priority_list[j])
-                                    + " "
-                                    + str(ET_list[j])
-                                    + "\n"
-                                )
+                        ) as jobset_file:
+                            for job in jobs:
+                                jobset_file.write(str(job) + "\n")
 
                         # Update progress bar
                         pbar.update(1)
