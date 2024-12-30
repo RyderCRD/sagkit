@@ -52,7 +52,7 @@ Construct SAGs:
 python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [save_statistics]
 ```
 
-## Example Usage (Manually type in 1 jobset)
+### Example Usage 1 (Manually type in 1 jobset)
 1. Create a folder /example/ in the current working directory.
 
 2. Create a file 'example.txt' in the /example/ folder.
@@ -86,7 +86,7 @@ python -m sagkit.sag_constructor [jobset_folder] [constructor_type] [save_dot] [
     https://dreampuf.github.io/GraphvizOnline (you may want to access in incognito mode.)
     ```
 
-## Example Usage (Automatically generate 84 jobsets)
+### Example Usage 2 (Automatically generate 84 jobsets)
 
 1. Generate jobsets:
     ```
