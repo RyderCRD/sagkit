@@ -36,6 +36,8 @@ The jobset generator takes the following arguments:
 * --num_job: How many jobs to include in each job set. Default is 1000.
 * --num_instance: How many jobsets to generate for each set of parameter combinations. Default is 1.
 
+Note: generate_jobs() of jobset_generator.py is based on the setup in our paper, and it requires the utilization rate to grow in steps of 5, starting at 45. You may re-implement this method to generate the desired jobsets if you want something different.
+
 Generate jobsets:
 ```
 python -m sagkit.jobset_generator [ET_ratio] [utilization] [jobset_folder] [num_job] [num_instance]
